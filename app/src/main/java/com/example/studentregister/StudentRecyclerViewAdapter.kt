@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ExpandableListView.OnChildClickListener
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.studentregister.databinding.ListItemsBinding
 import com.example.studentregister.db.Student
 
 class StudentRecyclerViewAdapter(
@@ -15,9 +16,8 @@ class StudentRecyclerViewAdapter(
     private val studentsList = ArrayList<Student>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val listItem = layoutInflater.inflate(R.layout.list_items, parent, false)
-        return StudentViewHolder(listItem)
+        val binding = ListItemsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return StudentViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -38,14 +38,14 @@ class StudentRecyclerViewAdapter(
 }
 
 
-class StudentViewHolder(private val view: View): RecyclerView.ViewHolder(view){
-    fun bind(student: Student, clickListener: (Student) -> Unit){
-        val nameTextView = view.findViewById<TextView>(R.id.tvName)
-        val emailTextView = view.findViewById<TextView>(R.id.tvEmail)
-        nameTextView.text = student.name
-        emailTextView.text = student.email
-        view.setOnClickListener {
-            clickListener(student)
+class StudentViewHolder(private val binding: ListItemsBinding): RecyclerView.ViewHolder(binding.root){
+    fun bind(student: Student, clickListener: (Student) -> Unit) {
+        binding.apply {
+            tvName.text = student.name
+            tvEmail.text = student.email
+            root.setOnClickListener {
+                clickListener(student)
+            }
         }
     }
 }

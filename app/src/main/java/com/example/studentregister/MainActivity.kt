@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var viewModel: StudentViewModel
-    private lateinit var studentRecyclerView : RecyclerView
     private lateinit var adapter: StudentRecyclerViewAdapter
     private var isListItemClicked = false
 
@@ -30,13 +29,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
         Log.i("MYTAG", "App started!!")
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         binding.apply {
 
@@ -74,12 +70,16 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun saveStudentData() {
-        viewModel.insertStudent(Student(
-            0,
-            binding.etName.text.toString(),
-            binding.etEmail.text.toString()
-        ))
-        Log.i("MYTAG", "Student info saved!!")
+        binding.apply {
+            viewModel.insertStudent(
+                Student(
+                    0,
+                    etName.text.toString(),
+                    etEmail.text.toString()
+                )
+            )
+            Log.i("MYTAG", "Student info saved!!")
+        }
     }
 
     private fun updateStudentData() {
