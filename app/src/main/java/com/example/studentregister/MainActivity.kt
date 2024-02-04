@@ -17,7 +17,6 @@ import com.example.studentregister.db.StudentDatabase
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-    private lateinit var bindingTwo: ListItemsBinding
 
 
     private lateinit var viewModel: StudentViewModel
